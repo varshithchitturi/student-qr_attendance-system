@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { Users, UserPlus, BarChart3, QrCode } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get('/api/students/all');
+      const response = await api.get('/api/students/all');
       setStudents(response.data);
     } catch (error) {
       toast.error('Failed to fetch students');
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
 
   const fetchAttendance = async () => {
     try {
-      const response = await axios.get('/api/attendance/all/records');
+      const response = await api.get('/api/attendance/all/records');
       setAttendance(response.data);
     } catch (error) {
       toast.error('Failed to fetch attendance');
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/students/register', formData);
+      await api.post('/api/students/register', formData);
       toast.success('Student registered successfully!');
       setShowRegisterForm(false);
       setFormData({ name: '', rollNo: '', email: '', department: '', username: '', password: '' });
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
 
   const generateQR = async (studentId) => {
     try {
-      const response = await axios.get(`/api/students/generate-qr/${studentId}`);
+      const response = await api.get(`/api/students/generate-qr/${studentId}`);
       const link = document.createElement('a');
       link.href = response.data.qrCode;
       link.download = `qr-code-${studentId}.png`;
