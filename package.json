@@ -3,19 +3,12 @@
   "version": "1.0.0",
   "description": "Complete QR-based attendance system for colleges",
   "scripts": {
-    "setup": "node setup.js",
+    "build": "cd frontend && npm install && npm run build",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "backend": "cd backend && npm run dev",
-    "frontend": "cd frontend && npm run dev",
-    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "build": "cd frontend && npm run build"
+    "frontend": "cd frontend && npm run dev"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "mongoose": "^7.5.0",
-    "dotenv": "^16.3.1"
   }
 }
