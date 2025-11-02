@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { QrCode, Calendar, Download, RefreshCw } from 'lucide-react';
 
@@ -17,7 +17,7 @@ const StudentPortal = () => {
 
   const fetchStudentProfile = async () => {
     try {
-      const response = await axios.get('/api/students/profile');
+      const response = await api.get('/api/students/profile');
       setStudent(response.data);
     } catch (error) {
       toast.error('Failed to fetch profile');
@@ -26,7 +26,7 @@ const StudentPortal = () => {
 
   const fetchAttendance = async () => {
     try {
-      const response = await axios.get('/api/attendance/student/my-attendance');
+      const response = await api.get('/api/attendance/student/my-attendance');
       setAttendance(response.data);
     } catch (error) {
       toast.error('Failed to fetch attendance');
@@ -38,7 +38,7 @@ const StudentPortal = () => {
     
     setLoading(true);
     try {
-      const response = await axios.get(`/api/students/generate-qr/${student._id}`);
+      const response = await api.get(`/api/students/generate-qr/${student._id}`);
       setQrCode(response.data.qrCode);
       toast.success('QR code generated successfully!');
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../utils/api';
 import toast from 'react-hot-toast';
 import { Camera, Scan, CheckCircle, XCircle } from 'lucide-react';
 
@@ -35,7 +35,7 @@ const FacultyPage = () => {
 
   const fetchRecentAttendance = async () => {
     try {
-      const response = await axios.get('/api/attendance/all/records');
+      const response = await api.get('/api/attendance/all/records');
       setRecentAttendance(response.data.slice(0, 10));
     } catch (error) {
       toast.error('Failed to fetch attendance records');
@@ -85,7 +85,7 @@ const FacultyPage = () => {
     
     if (qrData) {
       try {
-        await axios.post('/api/attendance/mark', {
+        await api.post('/api/attendance/mark', {
           qrData,
           latitude: location.latitude,
           longitude: location.longitude
