@@ -9,7 +9,10 @@ const attendanceRoutes = require('./routes/attendance');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://student-qr-attendance-system.netlify.app', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Simple in-memory storage for demo (no MongoDB required)
